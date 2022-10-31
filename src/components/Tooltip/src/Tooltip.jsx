@@ -98,7 +98,7 @@ export const Tooltip = ({ children: childrenProps, label, placement, addClass, h
    return (
       <>
          {children}
-         <Portal id="tooltip-portal">
+         <Portal id="js-tooltip-portal">
             <div
                id={id}
                ref={refTooltip}

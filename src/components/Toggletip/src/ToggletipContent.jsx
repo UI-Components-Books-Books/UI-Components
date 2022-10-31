@@ -8,6 +8,14 @@ import { Portal } from "components/Portal";
 import { typeValidation } from "utils/validations/typeValidation";
 import css from "./Toggletip.module.scss";
 
+/**
+ * Se crea un objeto que no se puede cambiar para
+ * almacenar el keyCode de la tecla "ESC".
+ */
+const KEYCODE = Object.freeze({
+   ESC: 27,
+});
+
 export const ToggletipContent = ({ children, addClass, hasArrow, isDisabled, distance, placement }) => {
    // Obtenemos la función isOpen y la referencia del botón del contexto
    const { isOpen, refButton } = useContext(ToggletipContext);
@@ -46,7 +54,7 @@ export const ToggletipContent = ({ children, addClass, hasArrow, isDisabled, dis
       }
 
       // Retorna el focus al buttonElement al presionar Esc
-      if ((e.keyCode || e.which) === 27) {
+      if ((e.keyCode || e.which) === KEYCODE.ESC) {
          buttonElement.focus();
       }
    };
@@ -79,7 +87,7 @@ export const ToggletipContent = ({ children, addClass, hasArrow, isDisabled, dis
    });
 
    return (
-      <Portal id="c-toggletip">
+      <Portal id="js-toggletip">
          <div
             tabIndex={-1}
             onKeyDown={onKeyDown}

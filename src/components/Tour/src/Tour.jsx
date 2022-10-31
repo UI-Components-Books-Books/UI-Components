@@ -98,7 +98,7 @@ export const Tour = ({ steps, isOpen, onClose, finalFocusRef, hideCloseButton, h
             },
          }}
       >
-         <Portal id="c-tour">
+         <Portal id="js-tour">
             {isOpen && (
                <>
                   <TourHelpLayer />
@@ -111,6 +111,7 @@ export const Tour = ({ steps, isOpen, onClose, finalFocusRef, hideCloseButton, h
 };
 
 Tour.defaultProps = {
+   isOpen: false,
    hideCloseButton: false,
    hideBackButton: false,
    ariaAttributes: {
