@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Col } from "components/Col";
 import { Row } from "components/Row";
@@ -12,7 +12,7 @@ export default {
       (story) => (
          <Row justify-content="center" align-items="center">
             <Col xs="11" mm="10" md="9" lg="5" hd="4">
-               <Row justify-content="center" align-items="center">
+               <Row justify-content="center" align-items="center" flex-direction="column">
                   {story()}
                </Row>
             </Col>
@@ -30,7 +30,7 @@ radio.args = {
    label: "Opción 1",
    type: "radio",
    state: "normal",
-   name: "option1",
+   name: "radio",
 };
 
 export const checkbox = Template.bind({});
@@ -40,5 +40,20 @@ checkbox.args = {
    label: "Opción 1",
    type: "checkbox",
    state: "normal",
-   name: "option1",
+   name: "checkbox",
 };
+
+export const WithIssuingValue = () => {
+   const [state, setState] = useState({ id: "", value: "" });
+
+   const onChange = (value) => setState(value);
+
+   return (
+      <>
+         <CheckBox onChange={onChange} value="my value" label='CheckBox with value "my value".' />
+         <p className="u-my-2">{JSON.stringify(state, 2, null)}</p>
+      </>
+   );
+};
+
+WithIssuingValue.storyName = "with issuing value";

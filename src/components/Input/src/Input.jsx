@@ -5,7 +5,7 @@ import _uniquedId from "lodash/uniqueId";
 import css from "./Input.module.scss";
 import { typeValidation } from "utils/validations/typeValidation";
 
-export const Input = forwardRef(({ addClass, label, type, placeholder, isLabelVisible, isDisabled, isRequired, onValue }, ref) => {
+export const Input = forwardRef(({ id, type, placeholder, label, addClass, isLabelVisible, isDisabled, isRequired, onValue }, ref) => {
    // Utilizado para controlar el valor del input.
    const [value, setValue] = useState("");
 
@@ -14,7 +14,7 @@ export const Input = forwardRef(({ addClass, label, type, placeholder, isLabelVi
     * para pasarlo dentro la función onValue proveniente
     * de los props.
     */
-   const input = useMemo(() => _uniquedId("c-input-"), []);
+   const input = useMemo(() => id || _uniquedId("c-input-"), [id]);
 
    /**
     * Detecta cuando el input tiene un cambio así actualizamos
@@ -57,22 +57,23 @@ export const Input = forwardRef(({ addClass, label, type, placeholder, isLabelVi
    );
 });
 
+Input.defaultProps = {
+   type: "text",
+   placeholder: "Default placeholder",
+   label: "Default input label",
+   isLabelVisible: false,
+   __TYPE: "Input",
+};
+
 Input.propTypes = {
-   addClass: PropTypes.string,
+   id: PropTypes.string,
+   type: PropTypes.oneOf(["text", "email", "password", "date"]),
    placeholder: PropTypes.string,
    label: PropTypes.string.isRequired,
-   type: PropTypes.oneOf(["text", "email", "password", "date"]),
+   addClass: PropTypes.string,
    isLabelVisible: PropTypes.bool,
    isDisabled: PropTypes.bool,
    isRequired: PropTypes.bool,
    onValue: PropTypes.func,
    __TYPE: typeValidation("Input"),
-};
-
-Input.defaultProps = {
-   placeholder: "Default placeholder",
-   isLabelVisible: false,
-   label: "Default input label",
-   type: "text",
-   __TYPE: "Input",
 };

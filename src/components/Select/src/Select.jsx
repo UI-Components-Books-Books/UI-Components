@@ -8,7 +8,7 @@ import { typeValidation } from "utils/validations/typeValidation";
 
 import css from "./Select.module.scss";
 
-export const Select = forwardRef(({ children, addClass, placeholder, label, icon, isLabelVisible, isDisabled, isRequired, onChoise }, ref) => {
+export const Select = forwardRef(({ children, id, placeholder, label, icon, addClass, isLabelVisible, isDisabled, isRequired, onChoise }, ref) => {
    // Usado para controlar el valor la opción seleccionada en el select.
    const [choise, setChoise] = useState();
 
@@ -17,7 +17,7 @@ export const Select = forwardRef(({ children, addClass, placeholder, label, icon
     * para pasarlo dentro la función onChoise proveniente
     * de los props.
     */
-   const select = useMemo(() => _uniquedId("c-select-"), []);
+   const select = useMemo(() => id || _uniquedId("c-select-"), [id]);
 
    /**
     * Detecta cuando el select tiene un cambio así actualizamos
@@ -60,22 +60,23 @@ export const Select = forwardRef(({ children, addClass, placeholder, label, icon
    );
 });
 
+Select.defaultProps = {
+   placeholder: "Select option",
+   label: "Select a option",
+   isLabelVisible: false,
+   __TYPE: "Select",
+};
+
 Select.propTypes = {
    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-   addClass: PropTypes.string,
+   id: PropTypes.string,
    placeholder: PropTypes.string,
    label: PropTypes.string.isRequired,
    icon: PropTypes.string,
+   addClass: PropTypes.string,
    isLabelVisible: PropTypes.bool,
    isDisabled: PropTypes.bool,
    isRequired: PropTypes.bool,
    onChoise: PropTypes.func,
    __TYPE: typeValidation("Select"),
-};
-
-Select.defaultProps = {
-   placeholder: "Select option",
-   isLabelVisible: false,
-   label: "Select a option",
-   __TYPE: "Select",
 };

@@ -7,15 +7,16 @@ import { Portal } from "components/Portal";
 
 import css from "./Tooltip.module.scss";
 
-export const Tooltip = ({ children: childrenProps, label, placement, addClass, hasArrow, distance, isDisabled }) => {
+export const Tooltip = ({ children: childrenProps, id, label, placement, addClass, hasArrow, distance, isDisabled }) => {
    // Estado que contrala la apertura o cierra del tooltip
    const [isOpen, setIsOpen] = useState(false);
    // Referencia del elemento que va a tener el tooltip
    const refElement = useRef(null);
    // Referencia del tooltip
    const refTooltip = useRef(null);
+
    // Creamos el id relacionar el tooltip con su elemento padre
-   const id = useMemo(() => _uniquedId("c-tooltip-"), []);
+   const tooltipId = useMemo(() => id || _uniquedId("c-tooltip-"), [id]);
 
    // Si no hay label, está deshabilitado o tiene más de 1 hijo no mostrar el tooltip
    if (!label || Children.count(childrenProps) > 1 || isDisabled) {
@@ -100,7 +101,7 @@ export const Tooltip = ({ children: childrenProps, label, placement, addClass, h
          {children}
          <Portal id="js-tooltip-portal">
             <div
-               id={id}
+               id={tooltipId}
                ref={refTooltip}
                role="tooltip"
                className={`${css["c-tooltip"]} ${isOpen && css["c-tooltip--active"]} ${addClass ?? ""}`}
@@ -115,8 +116,13 @@ export const Tooltip = ({ children: childrenProps, label, placement, addClass, h
    );
 };
 
+Tooltip.defaultProps = {
+   placement: "auto",
+};
+
 Tooltip.propTypes = {
    children: PropTypes.any,
+   id: PropTypes.string,
    label: PropTypes.string.isRequired,
    addClass: PropTypes.string,
    hasArrow: PropTypes.bool,
@@ -139,8 +145,4 @@ Tooltip.propTypes = {
       "left-start",
       "left-end",
    ]),
-};
-
-Tooltip.defaultProps = {
-   placement: "auto",
 };

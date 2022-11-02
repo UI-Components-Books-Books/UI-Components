@@ -25,15 +25,6 @@ export const Audio = ({ src, format, a11y, size, type, addClass }) => {
    });
 
    /**
-    * Se crea un objeto que no se puede cambiar para
-    * almacenar los tipos de icono que usara el tipo 'Button'.
-    */
-   const ICONS_STATE = Object.freeze({
-      PLAY: "play",
-      PAUSE: "pause",
-   });
-
-   /**
     * Función utilizada para alternar entre
     * activar o pausar el audio, dependiendo
     * del estado del mismo.
@@ -56,11 +47,10 @@ export const Audio = ({ src, format, a11y, size, type, addClass }) => {
       <>
          <audio ref={refAudio} preload="metadata" src={src} type={format} onEnded={() => setPlay(!play)} className={css["c-audio--hidden"]} />
          <Button
-            icon={{ name: `${play ? ICONS_STATE.PAUSE : ICONS_STATE.PLAY}` }}
             hasAriaLabel
             label={play ? "Pausar" : "Reproduccir"}
             onClick={onToggle}
-            {...(addClass && { addClass: `${addClass}` })}
+            addClass={`${css["c-button"]} ${play ? css["is-button-playing"] : css["is-button-paused"]} ${addClass ?? ""}`}
          />
       </>
    );

@@ -5,20 +5,20 @@ import _uniquedId from "lodash/uniqueId";
 import css from "./TextArea.module.scss";
 
 export const TextArea = forwardRef(
-   ({ addClass, resize, label, isLabelVisible, value, onValue, isDisabled, isRequired, placeholder, ...props }, ref) => {
+   ({ id, value, resize, placeholder, label, addClass, isLabelVisible, isDisabled, isRequired, onValue, ...props }, ref) => {
       /**
        * Se crea un ID para identificar el textarea y además
        * para pasarlo dentro la función onValue proveniente
        * de los props.
        */
-      const textAreaId = useMemo(() => _uniquedId("c-input-"), []);
+      const textAreaId = useMemo(() => id || _uniquedId("c-input-"), [id]);
 
       /**
        * Detecta cuando el input tiene un cambio y si existe
        * la propiedad onValue le pasamos los parámetros
        *  id y value del input.
        *
-       * @param {target} target - HTMLInputElement
+       * @param {target} target - HTMLInputElement.
        */
       const onChange = ({ target }) => {
          if (onValue) onValue({ id: textAreaId, value: target.value });
@@ -47,18 +47,19 @@ export const TextArea = forwardRef(
 );
 
 TextArea.defaultProps = {
-   placeholder: "Here is a sample placeholder",
    resize: "vertical",
+   placeholder: "Here is a sample placeholder",
 };
 
 TextArea.propTypes = {
-   addClass: PropTypes.string,
+   id: PropTypes.string,
+   value: PropTypes.string,
+   resize: PropTypes.oneOf(["none", "horizontal", "vertical"]),
    placeholder: PropTypes.string,
-   isLabelVisible: PropTypes.bool,
    label: PropTypes.string,
+   addClass: PropTypes.string,
+   isLabelVisible: PropTypes.bool,
    isDisabled: PropTypes.bool,
    isRequired: PropTypes.bool,
    onValue: PropTypes.func,
-   value: PropTypes.string,
-   resize: PropTypes.oneOf(["none", "horizontal", "vertical"]),
 };

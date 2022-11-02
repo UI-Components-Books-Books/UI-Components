@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, forwardRef } from "react";
 import PropTypes from "prop-types";
 import _uniquedId from "lodash/uniqueId";
 
@@ -13,24 +13,24 @@ const KEYDOWN = Object.freeze({
    ENTER: 13,
 });
 
-export const Switch = ({ id, name, size, value, label, addClass, isDisabled, defaultChecked, isLabelVisible, onChange }) => {
+export const Switch = forwardRef(({ id, name, size, value, label, addClass, isDisabled, defaultChecked, isLabelVisible, onChange }, ref) => {
    // Estado utilizado para controlar si el input está checked.
    const [checked, setChecked] = useState(false);
 
    /**
     * Se crea un ID para identificar el input y además
-    * para pasarlo dentro la función onValue proveniente
+    * para pasarlo dentro la función onChange proveniente
     * de los props.
     */
    const switchId = useMemo(() => id || _uniquedId("c-input-"), [id]);
 
    /**
-    * Función utilizada para actualizar
+    * Detecta cuando el input tiene un cambio y actualiza
     * tanto el estado como el valor pasado
     * a través de la propiedad onChange cuando
     * el input cambia.
     *
-    * @param {Event} {target} - Evento que se ejecuta al momento de cambiar el input.
+    * @param {HTMLInputElement} target - HTMLInputElement.
     */
    const onChangeSwitch = ({ target }) => {
       setChecked(target.checked);
@@ -38,11 +38,11 @@ export const Switch = ({ id, name, size, value, label, addClass, isDisabled, def
       if (!onChange) return;
 
       if (target.checked) {
-         onChange({ id: switchId, value: target.value });
+         onChange({ id: target.id, value: target.value });
          return;
       }
 
-      onChange({ id: switchId, value: "" });
+      onChange({ id: target.id, value: "" });
    };
 
    /**
@@ -83,20 +83,21 @@ export const Switch = ({ id, name, size, value, label, addClass, isDisabled, def
          <span className={`${!isLabelVisible && "u-sr-only"}`}> {label} </span>
          <input
             id={switchId}
+            ref={ref}
+            role="switch"
+            type="checkbox"
+            name={name}
             value={value}
+            checked={checked}
+            aria-disabled={isDisabled}
+            className={`${css["c-switch"]} ${addClass ?? ""}`}
             onChange={onChangeSwitch}
             onKeyDown={onKeyDown}
-            type="checkbox"
-            className={`${css["c-switch"]} ${addClass ?? ""}`}
-            role="switch"
-            aria-disabled={isDisabled}
-            name={name}
-            checked={checked}
             {...(isDisabled && { disabled: true })}
          />
       </label>
    );
-};
+});
 
 Switch.defaultProps = {
    size: "md",

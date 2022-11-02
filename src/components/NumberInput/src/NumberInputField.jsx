@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, forwardRef } from "react";
 import PropTypes from "prop-types";
 import _uniquedId from "lodash/uniqueId";
 
@@ -7,7 +7,7 @@ import { typeValidation } from "utils/validations/typeValidation";
 
 import css from "./NumberInput.module.scss";
 
-export const NumberInputField = ({ addClass, isLabelVisible, label, pattern, name }) => {
+export const NumberInputField = forwardRef(({ id, name, label, pattern, addClass, isLabelVisible }, ref) => {
    /**
     * Se obtienen las propiedades counter, onChangeValue, onIncrementValue, onDecrementValue,
     * min y max del contexto generado por el componente NumberInput.
@@ -17,7 +17,7 @@ export const NumberInputField = ({ addClass, isLabelVisible, label, pattern, nam
    /**
     * Se crea un ID para identificar el input.
     */
-   const input = useMemo(() => _uniquedId("c-number-input-"), []);
+   const input = useMemo(() => id || _uniquedId("c-number-input-"), [id]);
 
    /**
     * Se crea un objeto que no se puede cambiar para
@@ -79,13 +79,15 @@ export const NumberInputField = ({ addClass, isLabelVisible, label, pattern, nam
          <span className={`${!isLabelVisible && "u-sr-only"}`}> {label} </span>
 
          <input
+            id={input}
+            ref={ref}
             type="text"
             name={name}
-            inputMode="decimal"
             role="spinbutton"
+            inputMode="decimal"
             pattern={pattern}
-            autoComplete="off"
             autoCorrect="off"
+            autoComplete="off"
             className={css["c-number-input__input"]}
             onChange={onChange}
             onKeyDown={onKeyDown}
@@ -101,20 +103,21 @@ export const NumberInputField = ({ addClass, isLabelVisible, label, pattern, nam
          />
       </label>
    );
+});
+
+NumberInputField.defaultProps = {
+   name: "number-input-field",
+   label: "Default input number",
+   pattern: "[0-9]*(.[0-9]+)?",
+   __TYPE: "NumberInputField",
 };
 
 NumberInputField.propTypes = {
-   addClass: PropTypes.string,
-   isLabelVisible: PropTypes.bool,
+   id: PropTypes.string,
+   name: PropTypes.string,
    label: PropTypes.string,
    pattern: PropTypes.string,
-   name: PropTypes.string,
+   addClass: PropTypes.string,
+   isLabelVisible: PropTypes.bool,
    __TYPE: typeValidation("NumberInputField"),
-};
-
-NumberInputField.defaultProps = {
-   pattern: "[0-9]*(.[0-9]+)?",
-   name: "number-input-field",
-   label: "Default input number",
-   __TYPE: "NumberInputField",
 };
