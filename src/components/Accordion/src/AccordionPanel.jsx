@@ -8,19 +8,17 @@ export const AccordionPanel = ({ children, id, isExpanded, addClass, __TYPE, ...
       <div
          className={`${css["c-accordion"]} ${isExpanded ? css["c-accordion__panel--active"] : css["c-accordion__panel"]}`}
          aria-hidden={!isExpanded}
-         {...props}
          data-type={__TYPE}
+         {...props}
       >
-         <div style={{ transition: "opacity 2s ease-in-out 0s", ...{ ...(!isExpanded && { opacity: 0, display: "none" }) } }}>
-            <div
-               id={`accordion-panel-${id}`}
-               role="region"
-               aria-hidden={!isExpanded}
-               aria-labelledby={`accordion-button-${id}`}
-               className={`${css["c-accordion__panel-content"]} ${addClass ?? ""}`}
-            >
-               {children}
-            </div>
+         <div
+            id={`accordion-panel-${id}`}
+            role="region"
+            aria-hidden={!isExpanded}
+            aria-labelledby={`accordion-button-${id}`}
+            className={`${css["c-accordion__panel-content"]} ${addClass ?? ""}`}
+         >
+            {children}
          </div>
       </div>
    );

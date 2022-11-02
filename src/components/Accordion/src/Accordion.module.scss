@@ -28,7 +28,7 @@
 
 
 :where(.c-accordion) {
-    transition: height 0.2s ease 0s, opacity 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s;
+    transition: height 0.2s ease 0s, opacity 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s; 
 }
 
 :where(.c-accordion__panel) {
