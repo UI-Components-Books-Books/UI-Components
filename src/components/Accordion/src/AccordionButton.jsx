@@ -2,13 +2,15 @@ import PropTypes from "prop-types";
 import { typeValidation } from "utils/validations/typeValidation";
 import css from "./Accordion.module.scss";
 
-export const AccordionButton = ({ children, onExpanded, isExpanded, expanded, addClass, icon, __TYPE, ...props }) => {
+export const AccordionButton = ({ children, id, onExpanded, isExpanded, expanded, addClass, icon, __TYPE, ...props }) => {
    return (
       <button
-         data-type={__TYPE}
-         onClick={onExpanded}
-         className={`${css["c-accordion__button"]} u-flex ${addClass ?? ""} ${isExpanded && expanded && expanded}`}
+         id={`accordion-button-${1}`}
+         aria-controls={`accordion-panel-${1}`}
          aria-expanded={isExpanded}
+         className={`${css["c-accordion__button"]} u-flex ${addClass ?? ""} ${isExpanded && expanded && expanded}`}
+         onClick={onExpanded}
+         data-type={__TYPE}
          {...props}
       >
          {children}
@@ -19,6 +21,7 @@ export const AccordionButton = ({ children, onExpanded, isExpanded, expanded, ad
 
 AccordionButton.propTypes = {
    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.arrayOf(PropTypes.element), PropTypes.element, PropTypes.node]),
+   id: PropTypes.number,
    onExpanded: PropTypes.func,
    isExpanded: PropTypes.bool,
    expanded: PropTypes.string,

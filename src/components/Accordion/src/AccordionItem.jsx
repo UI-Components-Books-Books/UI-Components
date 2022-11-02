@@ -43,10 +43,10 @@ export const AccordionItem = ({ children: childrenProp, id, isOpen, onToggle, ad
 
       // Comprueba si el child es de tipo AccordionItem
       if (child.props.__TYPE === "AccordionButton") {
-         return cloneElement(child, { ...child.props, onExpanded, isExpanded: validation() });
+         return cloneElement(child, { ...child.props, id, onExpanded, isExpanded: validation() });
       }
 
-      return cloneElement(child, { ...child.props, isExpanded: validation() });
+      return cloneElement(child, { ...child.props, id, isExpanded: validation() });
    });
 
    return (
