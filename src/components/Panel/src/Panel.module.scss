@@ -71,9 +71,9 @@
 }
 
 :where(.c-navigation__button:disabled) {
-    opacity: 0.38;
+    opacity: 0.55;
     pointer-events: none;
     cursor: default;
     border: 1px solid var(--clr-neutral-400);
-    stroke: var(--clr-neutral-400);
+    stroke: var(--clr-neutral-900);
 }
