@@ -5,24 +5,24 @@
  * @returns Object
  */
 const flatObject = (object) => {
-   let newObject = {};
+  let newObject = {}
 
-   for (const i in object) {
-      if (typeof object[i] === "object") {
-         const temporal = flatObject(object[i]);
-         for (const j in temporal) {
-            newObject = {
-               ...newObject,
-               [i.includes("accents") || i.includes("palette") ? j : `${i}-${j}`]: temporal[j],
-            };
-         }
-      } else {
-         newObject[i] = object[i];
+  for (const i in object) {
+    if (typeof object[i] === 'object') {
+      const temporal = flatObject(object[i])
+      for (const j in temporal) {
+        newObject = {
+          ...newObject,
+          [i.includes('accents') || i.includes('palette') ? j : `${i}-${j}`]: temporal[j]
+        }
       }
-   }
+    } else {
+      newObject[i] = object[i]
+    }
+  }
 
-   return newObject;
-};
+  return newObject
+}
 
 /**
  *
@@ -33,5 +33,5 @@ const flatObject = (object) => {
  * @returns Object
  */
 export const createTheme = (theme) => {
-   return flatObject(theme);
-};
+  return flatObject(theme)
+}

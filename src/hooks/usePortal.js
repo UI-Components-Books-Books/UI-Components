@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react'
 
 /**
  *
@@ -8,18 +8,18 @@ import { useRef, useEffect } from "react";
  * @returns {HTMLElement}
  */
 const createRootElement = (id) => {
-   const rootContainer = document.createElement("div");
-   rootContainer.setAttribute("id", id);
-   return rootContainer;
-};
+  const rootContainer = document.createElement('div')
+  rootContainer.setAttribute('id', id)
+  return rootContainer
+}
 
 /**
  * Agrega elementos como último hijo del Body.
  * @param {HTMLElement} rootElem - Elemento a añadir
  */
 const addRootElement = (rootElem) => {
-   document.body.append(rootElem);
-};
+  document.body.append(rootElem)
+}
 
 /**
  * Hook para crear un React Portal.
@@ -35,32 +35,32 @@ const addRootElement = (rootElem) => {
  * @returns {HTMLElement} El nodo del DOM que se usa como base del portal
  */
 const usePortal = (id) => {
-   const rootElement = useRef(null);
+  const rootElement = useRef(null)
 
-   useEffect(() => {
-      // Busca si ya existe un elemento en el DOM
-      const existingParent = document.querySelector(`#${id}`);
+  useEffect(() => {
+    // Busca si ya existe un elemento en el DOM
+    const existingParent = document.querySelector(`#${id}`)
 
-      // Si existe el elemento usarlo como padre si no crear un nuevo elemento DOM.
-      const parentElement = existingParent || createRootElement(id);
+    // Si existe el elemento usarlo como padre si no crear un nuevo elemento DOM.
+    const parentElement = existingParent || createRootElement(id)
 
-      // Si no existe un elemento DOM agregar uno nuevo.
-      if (!existingParent) {
-         addRootElement(parentElement);
+    // Si no existe un elemento DOM agregar uno nuevo.
+    if (!existingParent) {
+      addRootElement(parentElement)
+    }
+
+    // Agregar elemento envoltoriO al padre.
+    parentElement.append(rootElement.current)
+
+    return () => {
+      rootElement.current.remove()
+      if (!parentElement.childElementCount) {
+        parentElement.remove()
       }
+    }
+  }, [id])
 
-      // Agregar elemento envoltoriO al padre.
-      parentElement.append(rootElement.current);
-
-      return () => {
-         rootElement.current.remove();
-         if (!parentElement.childElementCount) {
-            parentElement.remove();
-         }
-      };
-   }, [id]);
-
-   /**
+  /**
     * Es importante manejar esto de forma diferida (lazy):
     * - Se necesita que el primer render contenga el elemento DOM,
     *   pero no podemos agregarlo al useEffect.
@@ -70,14 +70,14 @@ const usePortal = (id) => {
     *   una vez.
     * @link https://es.reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
     */
-   function getRootElement() {
-      if (!rootElement.current) {
-         rootElement.current = document.createElement("div");
-      }
-      return rootElement.current;
-   }
+  function getRootElement () {
+    if (!rootElement.current) {
+      rootElement.current = document.createElement('div')
+    }
+    return rootElement.current
+  }
 
-   return getRootElement();
-};
+  return getRootElement()
+}
 
-export { usePortal };
+export { usePortal }

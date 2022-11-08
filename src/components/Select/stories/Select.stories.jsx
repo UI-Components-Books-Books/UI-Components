@@ -1,53 +1,53 @@
-import React from "react";
+import React from 'react'
 
-import { Col } from "components/Col";
-import { Row } from "components/Row";
+import { Col } from 'components/Col'
+import { Row } from 'components/Row'
 
-import { Select } from "components/Select";
+import { Select } from 'components/Select'
 
 export default {
-   title: "ui-components/Select",
-   component: Select,
-   decorators: [
-      (story) => (
-         <Row justify-content="center" align-items="center">
-            <Col xs="11" mm="10" md="9" lg="5" hd="4">
-               {story()}
-            </Col>
-         </Row>
-      ),
-   ],
-};
+  title: 'ui-components/Select',
+  component: Select,
+  decorators: [
+    (story) => (
+      <Row justify-content='center' align-items='center'>
+        <Col xs='11' mm='10' md='9' lg='5' hd='4'>
+          {story()}
+        </Col>
+      </Row>
+    )
+  ]
+}
 
 const Template = (args) => (
-   <Select {...args}>
-      <option value={1}>Lorem, ipsum dolor.</option>
-      <option value={2}>Lorem, ipsum dolor.</option>
-      <option value={3}>Lorem, ipsum dolor.</option>
-   </Select>
-);
+  <Select {...args}>
+    <option value={1}>Lorem, ipsum dolor.</option>
+    <option value={2}>Lorem, ipsum dolor.</option>
+    <option value={3}>Lorem, ipsum dolor.</option>
+  </Select>
+)
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 
-Default.storyName = "default";
+Default.storyName = 'default'
 
-export const Disabled = Template.bind({});
+export const Disabled = Template.bind({})
 
-Disabled.storyName = "disabled state";
+Disabled.storyName = 'disabled state'
 Disabled.args = {
-   isDisabled: true,
-};
+  isDisabled: true
+}
 
-export const WithOtherIcon = Template.bind({});
+export const WithOtherIcon = Template.bind({})
 
-WithOtherIcon.storyName = "with other icon";
+WithOtherIcon.storyName = 'with other icon'
 WithOtherIcon.args = {
-   icon: "check",
-};
+  icon: 'check'
+}
 
-export const WithVisibleLabel = Template.bind({});
+export const WithVisibleLabel = Template.bind({})
 
-WithVisibleLabel.storyName = "with visible label";
+WithVisibleLabel.storyName = 'with visible label'
 WithVisibleLabel.args = {
-   isLabelVisible: true,
-};
+  isLabelVisible: true
+}

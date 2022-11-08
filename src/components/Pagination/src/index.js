@@ -1,2 +1,2 @@
-export { Pagination } from "./Pagination";
-export { PaginationItem } from "./PaginationItem";
+export { Pagination } from './Pagination'
+export { PaginationItem } from './PaginationItem'
