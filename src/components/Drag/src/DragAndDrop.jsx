@@ -301,6 +301,7 @@ export const DragAndDrop = ({
     */
   useEffect(() => {
     if (reboot) setItems(() => initialState())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reboot])
 
   return (

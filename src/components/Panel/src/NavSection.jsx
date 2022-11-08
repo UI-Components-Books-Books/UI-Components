@@ -179,6 +179,7 @@ export const NavSection = ({ renderItem, showPrevButton, showNextButton, icons, 
     */
   useEffect(() => {
     if (onValue !== undefined) onValue(currentSection, listId.length)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

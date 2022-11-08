@@ -36,6 +36,7 @@ export const Tab = ({ children, id, selected, addClass, icon, addNewRef, onNavig
       // Limpiamos la referencia al desmontar el componente
       refButton.current = null
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refButton])
 
   return (

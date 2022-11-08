@@ -36,6 +36,7 @@ export const TourHelpLayer = () => {
     return () => {
       setPosition({})
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target])
 
   /**
@@ -56,6 +57,7 @@ export const TourHelpLayer = () => {
       // Eliminamos el evento "resize" del window al desmontar el componente.
       window.removeEventListener('resize', handleResize)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, target])
 
   return (
