@@ -1,16 +1,14 @@
 {
   "files.exclude": {
-    // "**/.vscode": false,
-    // "**/node_modules": false,
-    // "**/.husky": true,
-    // ".npmrc": true,
-    // "**commitlint.config.js": true,
-    // "**.gitignore": true,
-    // "**.eslintcache": true,
-    // "**.eslintrc.json": false,
-    // "**.gitmodules": true,
-    // "**.prettierrc": true,
-    // "**package-lock.json": true,
-    // "**/.github": true
+    "**/.vscode": false,
+    "**/node_modules": false,
+    "**/.husky": true,
+    ".npmrc": true,
+    "**.gitignore": true,
+    "**.gitmodules": true,
+    "**package-lock.json": true,
+    "**/.github": true,
+    "**/.storybook": true,
+    "**jsconfig.json": true
   },
 }
