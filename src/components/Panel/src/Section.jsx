@@ -18,6 +18,7 @@ export const Section = ({ children, id, addClass, __TYPE, ...props }) => {
     */
   const isSelected = validation(id)
 
+  // TODO: Agregar transición con FrameMotion
   return (
     <section
       role='tabpanel'
@@ -26,7 +27,7 @@ export const Section = ({ children, id, addClass, __TYPE, ...props }) => {
       data-type={__TYPE}
       aria-hidden={!isSelected}
       aria-labelledby={`section-${id}`}
-      className={`${css['c-section']} ${isSelected && 'animate__animated animate__fadeInDown animate__faster'} ${addClass ?? ''}`}
+      className={`${css['c-section']} ${addClass ?? ''}`}
       {...props}
     >
       <span id={`section-${id}`} className='u-sr-only'>
