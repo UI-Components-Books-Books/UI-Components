@@ -34,6 +34,7 @@ export const Icon = ({ name, size, addClass }) => {
       viewBox='0 0 48 48'
       className={`${css['c-icon']} ${css[`c-${size}`]} ${addClass ?? ''}`}
       aria-hidden='true'
+      data-testid={name}
     >
       <use xlinkHref={`${svgURL}#${name}`} />
     </svg>

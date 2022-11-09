@@ -98,9 +98,10 @@ interactions.args = {
 
 interactions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement)
+
   await userEvent.click(canvas.getByRole('button'))
 
-  expect(canvas.getByRole('button')).toBe(canvas.getByText(interactions.args.label))
+  expect(canvas.getByRole('button')).toHaveFocus()
 }
 
 interactions.storyName = 'interactions'
