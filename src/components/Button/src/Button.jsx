@@ -13,7 +13,7 @@ export const Button = forwardRef((props, ref) => {
     <button
       ref={ref}
       className={`${css['c-button']} ${css[`c-${variant}`]} ${css[`c-${size}`]} ${icon && icon.name && hasAriaLabel ? css['c-round'] : ''} 
-        ${icon && icon.position === 'right' ? css['c-reverse'] : ''} u-flex ${addClass ?? ''}`}
+        ${icon && icon.position === 'right' ? css['c-reverse'] : ''} ${addClass ?? ''}`}
       disabled={disabled}
       type={type}
       onClick={onClick}

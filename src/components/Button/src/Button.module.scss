@@ -4,6 +4,8 @@
 }
 
 :where(.c-button) {
+  display: flex;
+  gap: var(--gap);
   justify-content: center;
   align-items: center;
   border-color: transparent;

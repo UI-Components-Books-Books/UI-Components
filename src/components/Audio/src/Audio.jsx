@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Button } from 'components/Button'
 import css from './Audio.module.scss'
 
-export const Audio = ({ src, format, a11y, size, type, addClass }) => {
+export const Audio = ({ src, format, a11y, size, type, addClass, ...props }) => {
   /**
     * Es utilizado para conocer el estado del audio.
     */
@@ -41,7 +41,7 @@ export const Audio = ({ src, format, a11y, size, type, addClass }) => {
 
   return type === TYPES.BAR
     ? (
-      <audio preload='metadata' controls className={`${css['c-audio']} ${size && css[`c-audio--${size}`]}`} data-a11y={a11y}>
+      <audio preload='metadata' controls className={`${css['c-audio']} ${size && css[`c-audio--${size}`]} ${addClass ?? ''}`} data-a11y={a11y} {...props}>
         <source src={src} type={format} />
       </audio>
       )
@@ -49,10 +49,13 @@ export const Audio = ({ src, format, a11y, size, type, addClass }) => {
       <>
         <audio ref={refAudio} preload='metadata' src={src} type={format} onEnded={() => setPlay(!play)} className={css['c-audio--hidden']} />
         <Button
-          hasAriaLabel
           label={play ? 'Pausar' : 'Reproduccir'}
-          onClick={onToggle}
+          data-a11y={a11y}
           addClass={`${css['c-button']} ${play ? css['is-button-playing'] : css['is-button-paused']} ${addClass ?? ''}`}
+          onClick={onToggle}
+          hasAriaLabel
+          {...(a11y && { disabled: a11y })}
+          {...props}
         />
       </>
       )
@@ -66,7 +69,7 @@ Audio.defaultProps = {
 Audio.propTypes = {
   src: PropTypes.string,
   a11y: PropTypes.bool,
-  format: PropTypes.string.isRequired,
+  format: PropTypes.string,
   size: PropTypes.oneOf(['small']),
   type: PropTypes.oneOf(['Bar', 'Button']),
   addClass: PropTypes.string

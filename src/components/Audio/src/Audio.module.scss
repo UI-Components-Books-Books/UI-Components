@@ -1,7 +1,10 @@
 :where(.c-audio) {
-    display: block;
+    margin: 0 auto;
     width: 20%;
     min-width: 250px;
+    max-width: 13.625rem;
+    height: 2.5rem;
+    display: block;
 }
 
 .c-audio::-webkit-media-controls-panel {
@@ -19,11 +22,7 @@
     font-size: 0.625rem;
 }
 
-
 :where(.c-audio[data-a11y='true']) {
-    max-width: 13.625rem;
-    margin: 0 auto;
-    height: 2.5rem;
     display: none;
 }
 
