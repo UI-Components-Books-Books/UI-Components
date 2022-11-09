@@ -20,7 +20,7 @@ describe('Test in <Accordion/>', () => {
     expect(screen.getByText(/text/)).toBeInTheDocument()
   })
 
-  test('should open the accordion if click the accordion button', async () => {
+  test('should open the accordion if clicked the accordion button', async () => {
     render(
       <Accordion>
         <AccordionItem>
@@ -37,7 +37,26 @@ describe('Test in <Accordion/>', () => {
     expect(screen.getByText(/text/i)).toBeVisible()
   })
 
-  test('should open multiple accordion items', async () => {
+  test('should have the custom class with it is expanded', async () => {
+    render(
+      <Accordion>
+        <AccordionItem>
+          <AccordionButton expanded='u-bg-success-300'>title</AccordionButton>
+          <AccordionPanel>
+            text
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+    )
+
+    const accordionButton = screen.getByText(/title/i)
+
+    await userEvent.click(accordionButton)
+
+    expect(accordionButton).toHaveClass('u-bg-success-300')
+  })
+
+  test('should open multiple ”AccordionItem”', async () => {
     render(
       <Accordion allowMultiple>
         <AccordionItem>
@@ -67,26 +86,37 @@ describe('Test in <Accordion/>', () => {
     expect(screen.getByText(/Accordion panel 2./i)).toBeVisible()
   })
 
-  test('should have the custom class with it is expanded', async () => {
+  test('shoud open/close one ”AccordionItem” if the ”allowMultiple” property is true', async () => {
     render(
-      <Accordion>
+      <Accordion allowMultiple>
         <AccordionItem>
-          <AccordionButton expanded='u-bg-success-300'>title</AccordionButton>
+          <AccordionButton>Button 1</AccordionButton>
           <AccordionPanel>
-            text
+            <p>
+              Accordion panel 1.
+            </p>
+          </AccordionPanel>
+        </AccordionItem>
+
+        <AccordionItem>
+          <AccordionButton>Button 2</AccordionButton>
+          <AccordionPanel>
+            <p>
+              Accordion panel 2.
+            </p>
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
     )
 
-    const accordionButton = screen.getByText(/title/i)
+    await userEvent.click(screen.getByText(/Button 1/i))
+    expect(screen.getByText(/Accordion panel 1./i)).toBeVisible()
 
-    await userEvent.click(accordionButton)
-
-    expect(accordionButton).toHaveClass('u-bg-success-300')
+    await userEvent.click(screen.getByText(/Button 1/i))
+    expect(screen.getByText(/Accordion panel 1./i)).not.toBeVisible()
   })
 
-  test('should first', () => {
+  test('should open the ”AccordionItem” depending on the ”defaultIndex” property value', () => {
     render(
       <Accordion defaultIndex={1}>
         <AccordionItem>
