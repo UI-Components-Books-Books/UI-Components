@@ -9,6 +9,7 @@ export const AccordionPanel = ({ children, id, isExpanded, addClass, __TYPE, ...
       className={`${css['c-accordion']} ${isExpanded ? css['c-accordion__panel--active'] : css['c-accordion__panel']}`}
       aria-hidden={!isExpanded}
       data-type={__TYPE}
+      {...(!isExpanded && { hidden: !isExpanded })}
       {...props}
     >
       <div

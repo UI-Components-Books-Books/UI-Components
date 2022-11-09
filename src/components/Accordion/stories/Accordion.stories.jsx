@@ -1,4 +1,6 @@
 import React from 'react'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
 import { Col } from 'components/Col'
 import { Row } from 'components/Row'
@@ -28,14 +30,14 @@ const Template = (args) => (
     <AccordionItem>
       <AccordionButton>Section 1 title</AccordionButton>
       <AccordionPanel>
-        <p>{lorem}</p>
+        <p>First text: {lorem}</p>
       </AccordionPanel>
     </AccordionItem>
 
     <AccordionItem>
       <AccordionButton>Section 2 title</AccordionButton>
       <AccordionPanel>
-        <p>{lorem}</p>
+        <p>Second text: {lorem}</p>
       </AccordionPanel>
     </AccordionItem>
   </Accordion>
@@ -82,3 +84,20 @@ WithRenderIcon.args = {
     return isExpanded ? <Icon name='check' /> : <Icon name='close' />
   }
 }
+
+export const Interaction = Template.bind({})
+Interaction.args = {
+  ...Default.args
+}
+
+Interaction.play = async ({ canvasElement }) => {
+  const screen = within(canvasElement)
+
+  await userEvent.click(screen.getByText(/Section 2 title/i))
+  expect(screen.getByText(`Second text: ${lorem}`)).toBeVisible()
+
+  await userEvent.click(screen.getByText(/Section 1 title/i))
+  expect(screen.getByText(`First text: ${lorem}`)).toBeVisible()
+}
+
+Interaction.storyName = 'interactions'
