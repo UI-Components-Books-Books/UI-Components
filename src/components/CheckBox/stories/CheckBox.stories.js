@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
 import { Col } from 'components/Col'
 import { Row } from 'components/Row'
@@ -57,3 +59,20 @@ export const WithIssuingValue = () => {
 }
 
 WithIssuingValue.storyName = 'with issuing value'
+
+export const Interaction = Template.bind({})
+
+Interaction.args = {
+  ...checkbox.args
+}
+
+Interaction.play = async ({ canvasElement }) => {
+  const screen = within(canvasElement)
+  const checkbox = screen.getByRole('checkbox')
+
+  await userEvent.click(checkbox)
+
+  expect(checkbox).toBeChecked()
+}
+
+Interaction.storyName = 'interaction'

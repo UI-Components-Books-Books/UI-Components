@@ -31,6 +31,8 @@ export const Audio = ({ src, format, a11y, size, type, addClass, ...props }) => 
     *
     */
   const onToggle = (_) => {
+    if (!refAudio.current) return
+
     if (refAudio.current.paused) {
       refAudio.current.play()
     } else {
@@ -47,7 +49,7 @@ export const Audio = ({ src, format, a11y, size, type, addClass, ...props }) => 
       )
     : (
       <>
-        <audio ref={refAudio} preload='metadata' src={src} type={format} onEnded={() => setPlay(!play)} className={css['c-audio--hidden']} />
+        <audio ref={refAudio} src={src} type={format} onEnded={() => setPlay(!play)} className={css['c-audio--hidden']} />
         <Button
           label={play ? 'Pausar' : 'Reproduccir'}
           data-a11y={a11y}

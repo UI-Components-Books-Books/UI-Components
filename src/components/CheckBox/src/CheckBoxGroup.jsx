@@ -30,7 +30,8 @@ export const CheckBoxGroup = ({ legend, children: childrenProps, onChecked, addC
     if (onChecked) {
       onChecked(checked)
     }
-  }, [checked, onChecked])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checked])
 
   /**
     * Necesitamos agregar las propiedades onClick al componente CheckBox.
@@ -39,7 +40,7 @@ export const CheckBoxGroup = ({ legend, children: childrenProps, onChecked, addC
     if (!isValidElement(child)) return null
 
     if (child.props.__TYPE === 'CheckBox') {
-      return cloneElement(child, { ...child.props, onClick: onCheck })
+      return cloneElement(child, { ...child.props, onChange: onCheck })
     }
 
     return child
