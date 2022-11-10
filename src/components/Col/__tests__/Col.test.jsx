@@ -3,13 +3,13 @@ import { render, screen } from '@testing-library/react'
 import { Col } from 'components/Col'
 
 describe('Test in <Col/>', () => {
-  test('should render correcty', () => {
+  test('should render correctly', () => {
     render(<Col data-testid='test-col' />)
 
     expect(screen.getByTestId('test-col')).toBeInTheDocument()
   })
 
-  test('should render children correcty', () => {
+  test('should render children correctly', () => {
     render(
       <Col>
         <p>children text</p>

@@ -37,7 +37,7 @@ describe('Test in <Accordion/>', () => {
     expect(screen.getByText(/text/i)).toBeVisible()
   })
 
-  test('should have the custom class with it is expanded', async () => {
+  test('should have a custom class with it is expanded', async () => {
     render(
       <Accordion>
         <AccordionItem>
