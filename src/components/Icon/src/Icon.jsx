@@ -43,7 +43,7 @@ export const Icon = ({ name, size, addClass }) => {
 
 Icon.propTypes = {
   name: PropTypes.oneOf(iconList),
-  size: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'normal', 'big']),
   addClass: PropTypes.string,
   __TYPE: typeValidation('Icon')
 }
