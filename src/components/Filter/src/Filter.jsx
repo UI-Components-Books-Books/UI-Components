@@ -1,5 +1,5 @@
-export const Filter = () => (
-  <span id='hc_extension_svg_filters'>
+export const Filter = ({ ...props }) => (
+  <span id='hc_extension_svg_filters' {...props}>
     <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='0'>
       <defs>
         <filter id='hc_extension_off' x='0' y='0' width='99999' height='99999'>
