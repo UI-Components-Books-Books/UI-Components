@@ -1,4 +1,6 @@
 import React from 'react'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
 import { Col } from 'components/Col'
 import { Row } from 'components/Row'
@@ -59,3 +61,19 @@ export const AllAddon = () => (
 )
 
 AllAddon.storyName = 'with left and right addon'
+
+export const interactions = WithLeftAddon.bind({})
+
+interactions.storyName = 'interactions'
+
+interactions.play = async ({ canvasElement }) => {
+  const text = 'Input text testing'
+  const screen = within(canvasElement)
+  const element = screen.getByRole('textbox', { name: 'Default input label' })
+
+  await userEvent.click(element)
+  await userEvent.type(element, text)
+
+  expect(element).toHaveFocus()
+  expect(element).toHaveValue(text)
+}

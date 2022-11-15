@@ -5,7 +5,7 @@ import _uniquedId from 'lodash/uniqueId'
 import css from './Input.module.scss'
 import { typeValidation } from 'utils/validations/typeValidation'
 
-export const Input = forwardRef(({ id, type, placeholder, label, addClass, isLabelVisible, isDisabled, isRequired, onValue }, ref) => {
+export const Input = forwardRef(({ id, type, placeholder, label, addClass, isLabelVisible, isDisabled, isRequired, isReadOnly, onValue }, ref) => {
   // Utilizado para controlar el valor del input.
   const [value, setValue] = useState('')
 
@@ -52,6 +52,9 @@ export const Input = forwardRef(({ id, type, placeholder, label, addClass, isLab
         autoComplete='off'
         onChange={onChange}
         className={css['c-input']}
+        {
+          ...(isReadOnly && { readOnly: isReadOnly, 'aria-readonly': isReadOnly })
+        }
       />
     </label>
   )
@@ -74,6 +77,7 @@ Input.propTypes = {
   isLabelVisible: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
+  isReadOnly: PropTypes.bool,
   onValue: PropTypes.func,
   __TYPE: typeValidation('Input')
 }
