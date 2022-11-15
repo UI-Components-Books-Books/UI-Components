@@ -5,9 +5,9 @@ import _uniquedId from 'lodash/uniqueId'
 import css from './Input.module.scss'
 import { typeValidation } from 'utils/validations/typeValidation'
 
-export const Input = forwardRef(({ id, type, placeholder, label, addClass, isLabelVisible, isDisabled, isRequired, isReadOnly, onValue }, ref) => {
+export const Input = forwardRef(({ id, type, value: valueProps, placeholder, label, addClass, isLabelVisible, isDisabled, isRequired, isReadOnly, onValue }, ref) => {
   // Utilizado para controlar el valor del input.
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(valueProps || '')
 
   /**
     * Se crea un ID para identificar el input y además
@@ -71,6 +71,7 @@ Input.defaultProps = {
 Input.propTypes = {
   id: PropTypes.string,
   type: PropTypes.oneOf(['text', 'email', 'password', 'date']),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   label: PropTypes.string.isRequired,
   addClass: PropTypes.string,

@@ -1,6 +1,7 @@
-import { screen, render } from '@testing-library/react'
+import { screen, render, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-import { Input, InputStyle, InputLeftAddon, InputRightAddon } from 'components/Input'
+import { Input, InputGroup, InputStyle, InputLeftAddon, InputRightAddon } from 'components/Input'
 
 describe('Test in <Input/>', () => {
   test('should render elements inside correctly', () => {
@@ -38,5 +39,49 @@ describe('Test in <Input/>', () => {
     render(<Input isReadOnly />)
 
     expect(screen.getByRole('textbox')).toHaveAttribute('aria-readonly', 'true')
+  })
+
+  test('should return an object with id and value properties when the input changes', async () => {
+    let data
+
+    const onAllValue = (value) => {
+      data = [...value]
+    }
+
+    const [args1, args2] = [
+      {
+        id: 'input-test-id-1',
+        value: 'value-test',
+        label: 'input-1'
+      },
+      {
+        id: 'input-test-id-2',
+        label: 'input-2'
+      }
+    ]
+
+    render(
+      <InputGroup onAllValue={onAllValue}>
+        <Input {...args1} />
+        <Input {...args2} />
+      </InputGroup>
+    )
+
+    await userEvent.type(screen.getByRole('textbox', { name: args1.label }), '-1')
+
+    await userEvent.type(screen.getByRole('textbox', { name: args2.label }), 'value-test-2')
+
+    await waitFor(() => {
+      expect(data).toEqual([
+        {
+          id: args1.id,
+          value: `${args1.value}-1`
+        },
+        {
+          id: args2.id,
+          value: 'value-test-2'
+        }
+      ])
+    })
   })
 })
