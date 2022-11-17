@@ -4,11 +4,12 @@
     "**/node_modules": false,
     "**/.husky": true,
     ".npmrc": true,
-    "**.gitignore": true,
-    "**.gitmodules": true,
+    "**.gitignore": false,
     "**package-lock.json": true,
     "**/.github": true,
     "**/.storybook": true,
-    "**jsconfig.json": true
+    "**jsconfig.json": true,
+    ".babelrc": true,
+    ".env.production": true
   },
 }

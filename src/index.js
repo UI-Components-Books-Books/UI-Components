@@ -1,11 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-
-import { App } from './App'
+// Export all styles
 import './styles/styles.scss'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+// Export all components and custom hooks
+export * from './components'
+export * from './hooks'
