@@ -1,44 +1,78 @@
-import React from "react";
+import React, { useState } from 'react'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
-import { Col } from "components/Col";
-import { Row } from "components/Row";
+import { Col } from 'components/Col'
+import { Row } from 'components/Row'
 
-import { CheckBox } from "components/CheckBox";
+import { CheckBox } from 'components/CheckBox'
 
 export default {
-   title: "ui-components/CheckBox",
-   component: CheckBox,
-   decorators: [
-      (story) => (
-         <Row justify-content="center" align-items="center">
-            <Col xs="11" mm="10" md="9" lg="5" hd="4">
-               <Row justify-content="center" align-items="center">
-                  {story()}
-               </Row>
-            </Col>
-         </Row>
-      ),
-   ],
-};
+  title: 'ui-components/CheckBox',
+  component: CheckBox,
+  decorators: [
+    (story) => (
+      <Row justify-content='center' align-items='center'>
+        <Col xs='11' mm='10' md='9' lg='5' hd='4'>
+          <Row justify-content='center' align-items='center' flex-direction='column'>
+            {story()}
+          </Row>
+        </Col>
+      </Row>
+    )
+  ]
+}
 
-const Template = (args) => <CheckBox {...args} />;
+const Template = (args) => <CheckBox {...args} />
 
-export const radio = Template.bind({});
+export const radio = Template.bind({})
 
-radio.storyName = "radio";
+radio.storyName = 'radio'
 radio.args = {
-   label: "Opción 1",
-   type: "radio",
-   state: "normal",
-   name: "option1",
-};
+  label: 'Opción 1',
+  type: 'radio',
+  state: 'normal',
+  name: 'radio'
+}
 
-export const checkbox = Template.bind({});
+export const checkbox = Template.bind({})
 
-checkbox.storyName = "checkbox";
+checkbox.storyName = 'checkbox'
 checkbox.args = {
-   label: "Opción 1",
-   type: "checkbox",
-   state: "normal",
-   name: "option1",
-};
+  label: 'Opción 1',
+  type: 'checkbox',
+  state: 'normal',
+  name: 'checkbox'
+}
+
+export const WithIssuingValue = () => {
+  const [state, setState] = useState({ id: '', value: '' })
+
+  const onChange = (value) => setState(value)
+
+  return (
+    <>
+      <CheckBox onChange={onChange} value='my value' label='CheckBox with value "my value".' />
+      <p className='u-my-2'>{JSON.stringify(state, 2, null)}</p>
+    </>
+  )
+}
+
+WithIssuingValue.storyName = 'with issuing value'
+
+export const Interaction = Template.bind({})
+
+Interaction.args = {
+  ...checkbox.args
+}
+
+Interaction.play = async ({ canvasElement }) => {
+  const screen = within(canvasElement)
+  const checkbox = screen.getByRole('checkbox')
+
+  await userEvent.click(checkbox)
+
+  expect(checkbox).toBeChecked()
+}
+
+Interaction.storyName = 'interaction'

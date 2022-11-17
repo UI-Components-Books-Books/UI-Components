@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-import { PaginationItem } from "components/Pagination";
-import { usePagination } from "hooks/usePagination";
+import { PaginationItem } from 'components/Pagination'
+import { usePagination } from 'hooks/usePagination'
 
-import css from "./Pagination.module.scss";
+import css from './Pagination.module.scss'
 
 /**
  * Se crea un objeto que no se puede cambiar para
@@ -11,11 +11,11 @@ import css from "./Pagination.module.scss";
  * de diferentes terminos usados en el aria-label.
  */
 const getSpanishType = Object.freeze({
-   first: "primera",
-   last: "última",
-   previous: "anterior",
-   next: "siguiente",
-});
+  first: 'primera',
+  last: 'última',
+  previous: 'anterior',
+  next: 'siguiente'
+})
 
 /**
  *
@@ -28,62 +28,62 @@ const getSpanishType = Object.freeze({
  * @returns {string} Message - Mensaje utiliado en el aria-label
  */
 const defaultAriaLabel = (type, page, selected) => {
-   if (type === "page") {
-      return `${selected ? "" : "Ir a la "}página ${page}`;
-   }
-   return `Ir a la ${getSpanishType[type]} página`;
-};
+  if (type === 'page') {
+    return `${selected ? '' : 'Ir a la '}página ${page}`
+  }
+  return `Ir a la ${getSpanishType[type]} página`
+}
 
 export const Pagination = ({ renderItem, getItemAriaLabel, addClass, ...props }) => {
-   /**
+  /**
     * Se utiliza el custom hook usePagination para
     * obtener la paginación.
     */
-   const { items } = usePagination({ ...props });
+  const { items } = usePagination({ ...props })
 
-   return (
-      <nav className={`${addClass ?? ""} ${css["c-pagination"]}`}>
-         <ul role="list" className={css["c-pagination__ul"]}>
-            {items.map((item, index) => (
-               <li key={`pagination-item-${index}`}>
-                  {/* Utilizamos la render-prop para agregar el elemento que va a estar dentro del tag li */}
-                  {renderItem({
-                     ...item,
-                     "aria-label": getItemAriaLabel(item.type, item.page, item.selected),
-                  })}
-               </li>
-            ))}
-         </ul>
-      </nav>
-   );
-};
+  return (
+    <nav className={`${addClass ?? ''} ${css['c-pagination']}`}>
+      <ul className={css['c-pagination__ul']}>
+        {items.map((item, index) => (
+          <li key={`pagination-item-${index}`}>
+            {/* Utilizamos la render-prop para agregar el elemento que va a estar dentro del tag li */}
+            {renderItem({
+              ...item,
+              'aria-label': getItemAriaLabel(item.type, item.page, item.selected)
+            })}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
 
 Pagination.defaultProps = {
-   boundaryCount: 1,
-   count: 1,
-   defaultPage: 1,
-   disabled: false,
-   hideNextButton: false,
-   hidePrevButton: false,
-   showFirstButton: false,
-   showLastButton: false,
-   siblingCount: 1,
-   renderItem: (item) => <PaginationItem {...item} />,
-   getItemAriaLabel: defaultAriaLabel,
-};
+  boundaryCount: 1,
+  count: 1,
+  defaultPage: 1,
+  disabled: false,
+  hideNextButton: false,
+  hidePrevButton: false,
+  showFirstButton: false,
+  showLastButton: false,
+  siblingCount: 1,
+  renderItem: (item) => <PaginationItem {...item} />,
+  getItemAriaLabel: defaultAriaLabel
+}
 
 Pagination.propTypes = {
-   addClass: PropTypes.string,
-   boundaryCount: PropTypes.number,
-   count: PropTypes.number,
-   defaultPage: PropTypes.number,
-   disabled: PropTypes.bool,
-   hideNextButton: PropTypes.bool,
-   hidePrevButton: PropTypes.bool,
-   onChange: PropTypes.func,
-   showFirstButton: PropTypes.bool,
-   showLastButton: PropTypes.bool,
-   siblingCount: PropTypes.number,
-   renderItem: PropTypes.func,
-   getItemAriaLabel: PropTypes.func,
-};
+  addClass: PropTypes.string,
+  boundaryCount: PropTypes.number,
+  count: PropTypes.number,
+  defaultPage: PropTypes.number,
+  disabled: PropTypes.bool,
+  hideNextButton: PropTypes.bool,
+  hidePrevButton: PropTypes.bool,
+  onChange: PropTypes.func,
+  showFirstButton: PropTypes.bool,
+  showLastButton: PropTypes.bool,
+  siblingCount: PropTypes.number,
+  renderItem: PropTypes.func,
+  getItemAriaLabel: PropTypes.func
+}

@@ -1,106 +1,107 @@
-import React from "react";
-import { userEvent, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import React from 'react'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
-import { Col } from "components/Col";
-import { Row } from "components/Row";
+import { Col } from 'components/Col'
+import { Row } from 'components/Row'
 
-import { Button } from "components/Button";
+import { Button } from 'components/Button'
 
 export default {
-   title: "ui-components/Button",
-   component: Button,
-   argTypes: {
-      size: {
-         options: ["small", "normal", "big"],
-         control: { type: "radio" },
-      },
-      variant: {
-         options: ["primary", "secondary", "no-line"],
-         control: { type: "radio" },
-      },
-      hasAriaLabel: {
-         options: [true, false],
-         control: { type: "boolean" },
-      },
-      disabled: {
-         options: [true, false],
-         control: { type: "boolean" },
-      },
-   },
-   decorators: [
-      (story) => (
-         <Row justify-content="center" align-items="center">
-            <Col xs="11" mm="10" md="9" lg="5" hd="4">
-               <Row justify-content="center" align-items="center">
-                  {story()}
-               </Row>
-            </Col>
-         </Row>
-      ),
-   ],
-};
+  title: 'ui-components/Button',
+  component: Button,
+  argTypes: {
+    size: {
+      options: ['small', 'normal', 'big'],
+      control: { type: 'radio' }
+    },
+    variant: {
+      options: ['primary', 'secondary', 'no-line'],
+      control: { type: 'radio' }
+    },
+    hasAriaLabel: {
+      options: [true, false],
+      control: { type: 'boolean' }
+    },
+    disabled: {
+      options: [true, false],
+      control: { type: 'boolean' }
+    }
+  },
+  decorators: [
+    (story) => (
+      <Row justify-content='center' align-items='center'>
+        <Col xs='11' mm='10' md='9' lg='5' hd='4'>
+          <Row justify-content='center' align-items='center'>
+            {story()}
+          </Row>
+        </Col>
+      </Row>
+    )
+  ]
+}
 
-const Template = (args) => <Button {...args} />;
+const Template = (args) => <Button {...args} />
 
-export const text = Template.bind({});
+export const text = Template.bind({})
 text.args = {
-   variant: "primary",
-   label: "Button",
-   size: "normal",
-};
+  variant: 'primary',
+  label: 'Button',
+  size: 'normal'
+}
 
-text.storyName = "text";
+text.storyName = 'text'
 
-export const icon = Template.bind({});
+export const icon = Template.bind({})
 icon.args = {
-   variant: "primary",
-   label: "Button",
-   size: "normal",
-   hasAriaLabel: true,
-   icon: {
-      name: "play",
-      size: "big",
-   },
-};
+  variant: 'primary',
+  label: 'Button',
+  size: 'normal',
+  hasAriaLabel: true,
+  icon: {
+    name: 'play',
+    size: 'big'
+  }
+}
 
-icon.storyName = "icon";
+icon.storyName = 'icon'
 
-export const textAndIcon = Template.bind({});
+export const textAndIcon = Template.bind({})
 textAndIcon.args = {
-   variant: "primary",
-   label: "Button",
-   size: "normal",
-   icon: {
-      name: "volume_off",
-   },
-};
+  variant: 'primary',
+  label: 'Button',
+  size: 'normal',
+  icon: {
+    name: 'volume_off'
+  }
+}
 
-textAndIcon.storyName = "with left icon";
+textAndIcon.storyName = 'with left icon'
 
-export const textAndIconReverted = Template.bind({});
+export const textAndIconReverted = Template.bind({})
 textAndIconReverted.args = {
-   variant: "primary",
-   label: "Button",
-   size: "normal",
-   icon: {
-      name: "close",
-      position: "right",
-   },
-};
+  variant: 'primary',
+  label: 'Button',
+  size: 'normal',
+  icon: {
+    name: 'close',
+    position: 'right'
+  }
+}
 
-textAndIconReverted.storyName = "with right icon";
+textAndIconReverted.storyName = 'with right icon'
 
-export const interactions = Template.bind({});
+export const interactions = Template.bind({})
 interactions.args = {
-   ...text.args,
-};
+  ...text.args
+}
 
 interactions.play = async ({ canvasElement }) => {
-   const canvas = within(canvasElement);
-   await userEvent.click(canvas.getByRole("button"));
+  const canvas = within(canvasElement)
 
-   expect(canvas.getByRole("button")).toBe(canvas.getByText(interactions.args.label));
-};
+  await userEvent.click(canvas.getByRole('button'))
 
-interactions.storyName = "interactions";
+  expect(canvas.getByRole('button')).toHaveFocus()
+}
+
+interactions.storyName = 'interactions'

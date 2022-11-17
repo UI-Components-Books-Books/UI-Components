@@ -1,4 +1,4 @@
-import { Children } from "react";
+import { Children } from 'react'
 
 /**
  *
@@ -9,7 +9,7 @@ import { Children } from "react";
  * @returns {string} - El string que representa el tipo
  */
 export const typeOfComponent = (component) =>
-   component?.props?.__TYPE || component?.type?.toString().replace("Symbol(react.fragment)", "react.fragment") || undefined;
+  component?.props?.__TYPE || component?.type?.toString().replace('Symbol(react.fragment)', 'react.fragment') || undefined
 
 /**
  *
@@ -20,4 +20,4 @@ export const typeOfComponent = (component) =>
  *  // Encuentra todas las ocurrencias de AccordionItem, div, React Fragment
  *  getChildrenByType(childre, ['AccordionItem', 'div', 'react.fragment'])
  */
-export const getChildrenByType = (children, types) => Children.toArray(children).filter((child) => types.indexOf(typeOfComponent(child)) !== -1);
+export const getChildrenByType = (children, types) => Children.toArray(children).filter((child) => types.indexOf(typeOfComponent(child)) !== -1)

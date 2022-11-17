@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 /**
  * Hook para crear Media Queries.
@@ -25,56 +25,56 @@ import { useState, useEffect } from "react";
  * @returns {any} Retorna el valor de la media quiery al cumplirse.
  */
 const useMedia = (queries, values, defaultValue) => {
-   /**
+  /**
     * Estado que almacena el valor de la propiedad matches
     * del MediaQueryList.
     *
     * @link https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/matches
     */
-   const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue)
 
-   /**
+  /**
     * Arreglo que contiene una media query list
     * por cada una de las queries.
     */
-   const mediaQueryList = queries.map((query) => window.matchMedia(query));
+  const mediaQueryList = queries.map((query) => window.matchMedia(query))
 
-   /**
+  /**
     * Función utilizada para obtener uno de los valores de la propiedad values
     * basado en la propiedad matches del media query.
     *
     * @returns value - Valor proveniente de values.
     */
-   const getValue = () => {
-      // Obtenemos el index del primer media query que haya hecho match.
-      const index = mediaQueryList.findIndex((mediaQuery) => mediaQuery.matches);
+  const getValue = () => {
+    // Obtenemos el index del primer media query que haya hecho match.
+    const index = mediaQueryList.findIndex((mediaQuery) => mediaQuery.matches)
 
-      // Retornamos el valor relacionado o el defaultValue si no hay ninguno.
-      return typeof values[index] !== "undefined" ? values[index] : defaultValue;
-   };
+    // Retornamos el valor relacionado o el defaultValue si no hay ninguno.
+    return typeof values[index] !== 'undefined' ? values[index] : defaultValue
+  }
 
-   useEffect(() => {
-      // Agregamos el valor inicial al estado.
-      setValue(getValue);
+  useEffect(() => {
+    // Agregamos el valor inicial al estado.
+    setValue(getValue)
 
-      /**
+    /**
        * Función callback que se llama cada vez que
        * cambia el estado de la media query.
        *
        * @param {event} _
        */
-      const handler = (_) => setValue(getValue);
+    const handler = (_) => setValue(getValue)
 
-      // Agregamos un eventListener por cada uno de las media query.
-      mediaQueryList.forEach((mediaQuery) => mediaQuery.addEventListener("change", handler));
+    // Agregamos un eventListener por cada uno de las media query.
+    mediaQueryList.forEach((mediaQuery) => mediaQuery.addEventListener('change', handler))
 
-      return () => {
-         // Eliminamos el eventListener de cada media query.
-         mediaQueryList.forEach((mediaQuery) => mediaQuery.removeEventListener("change", handler));
-      };
-   }, []);
+    return () => {
+      // Eliminamos el eventListener de cada media query.
+      mediaQueryList.forEach((mediaQuery) => mediaQuery.removeEventListener('change', handler))
+    }
+  }, [])
 
-   return value;
-};
+  return value
+}
 
-export { useMedia };
+export { useMedia }
